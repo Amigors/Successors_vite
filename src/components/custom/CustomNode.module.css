@@ -1,0 +1,54 @@
+.customNode {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 1px solid #555;
+    padding: 10px;
+    background: #f1c080;
+    width: auto;
+    height: auto;
+}
+.customNode__content{
+    display: flex;
+    flex-direction: row;
+
+}
+.customNode__toolbar{
+    display: flex;
+    justify-content: space-around;
+}
+.handle {
+    background: #555
+}
+.photo{
+
+}
+.protectOne{
+    width: 20px; 
+    height: 20px;
+    background: #badf19;
+    border-radius: 50%;
+    position: absolute;
+}
+.protectTwo{
+    width: 20px; 
+    height: 20px;
+    background: #2d71b1;
+    border-radius: 50%;
+    position: absolute;
+}
+.protectThree{
+    width: 20px; 
+    height: 20px;
+    background: #cf1313;
+    border-radius: 50%;
+    position: absolute;
+}
+.protectFour{
+    width: 20px; 
+    height: 20px;
+    background: #0d9419;
+    border-radius: 50%;
+    position: absolute;
+}
