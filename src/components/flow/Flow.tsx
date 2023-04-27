@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 import ReactFlow, {
@@ -13,8 +13,8 @@ import ReactFlow, {
     MiniMap,
     NodeChange,
     useReactFlow,
-} from "react-flow-renderer";
-import "react-flow-renderer/dist/style.css";
+} from "reactflow";
+import "reactflow/dist/style.css";
 
 import CustomNodes from "../custom/CustomNode";
 
@@ -31,6 +31,7 @@ const Flow = () => {
     const items = transformUsersDataToReactFlowNodes(userData, successorsData);
     const [nodes, setNodes] = useState(items);
     const [edges, setEdges] = useState([]);
+    const shouldRunEffect = useRef(nodes)
 
     const [isDraggable, setIsDraggable] = useState(true);
 
@@ -52,20 +53,20 @@ const Flow = () => {
 
     const latestNodes = useMemo(() => nodes, [nodes]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const newEdges = [...edges];
         latestNodes.forEach((node1) => {
           latestNodes.forEach((node2) => {
             if (node1.id !== node2.id) {  
               if (node1.id == node2.data.parentId) {
-                const newEdge = { id: uuidv4(), source: node1.id, target: node2.id, type: 'smoothstep' };
+                const newEdge = { id: uuidv4(), source: node1.id, target: node2.id, type: 'smoothstep', style:{stroke:'#FD6925'}};
                 newEdges.push(newEdge);
               }
             }
           });
         });
         setEdges(newEdges);
-      }, [latestNodes]);
+      }, [shouldRunEffect]);
 
     const onNodesChange = useCallback(
         (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -93,7 +94,7 @@ const Flow = () => {
                 fitView
             >
                 <MiniMap/>
-                <Background color="#ccc" variant='cross'/>
+                <Background/>
                 <Controls/>
             </ReactFlow>
             <div style={{

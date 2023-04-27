@@ -135,17 +135,17 @@ export const successorsData: Successor[] = [
 
 export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?: any[] | undefined) =>
     usersData.map((user, index) => {
-      return {
-      type: "myNode",
-      id: `${user.id}`,
-      data: { 
-        ...user,
-        mySuccessors: successers?.filter(successer => successer.parentId == user.id),
-        showButton: successers?.some(successer => successer.parentId == user.id)
-       },
-      style:{display:'flex'},
-      position: {
-        x: index * 200 + 500,
-        y: index * 200 + 500,
-      },
+        return {
+        type: "myNode",
+        id: `${user.id}`,
+        data: { 
+            ...user,
+            mySuccessors: successers?.filter(successer => successer.parentId == user.id),
+            showButton: successers?.some(successer => successer.parentId == user.id)
+        },
+        style:{display:'flex'},
+        position: {
+            x: index * 200 + 500,
+            y: index * 200 + 500,
+        },
     }});
