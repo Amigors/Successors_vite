@@ -1,13 +1,22 @@
+.company{
+    position: absolute;
+    top: -20px;
+    left: 80px;
+    background: #91b3b7;
+    width: 250px;
+    height: 20px;
+}
+
 .customNode {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    border-radius: 15px;
+    border-radius: 70px;
     border: 1px solid #555;
     padding: 10px;
-    background: #6cace4;
-    width: auto;
-    height: auto;
+    background: #f5fcff;
+    width: 400px;
+    height: 120px;
 }
 .customNode__content{
     display: flex;
@@ -15,40 +24,118 @@
 
 }
 .customNode__toolbar{
-    display: flex;
-    justify-content: space-around;
-}
-.handle {
-    background: #555
-}
-.photo{
-
-}
-.protectOne{
-    width: 20px; 
-    height: 20px;
-    background: #badf19;
-    border-radius: 50%;
     position: absolute;
+    top: 100%;
+    left: 0;
+    width: auto;
+    z-index: 2;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+    background: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 8px 12px;
+}
+
+li:hover {
+    background-color: rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+
+.handle {
+    background: #555;
+    visibility: hidden;
+}
+
+.photo{
+    display: flex;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.photoBlock{
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.protectOne{
+    position: absolute;
+    top: -14px;
+    left: -15px;
+    width: 140px;
+    height: 140px;
+    border-right: 15px solid transparent;
+    border-left: 15px solid #badf19;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid #badf19;
+    -moz-border-radius: 50px 50px 50px 50px;
+    border-radius: 50%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 .protectTwo{
-    width: 20px; 
-    height: 20px;
-    background: #2d71b1;
-    border-radius: 50%;
     position: absolute;
+    top: -14px;
+    left: -15px;
+    width: 140px;
+    height: 140px;
+    border-right: 15px solid transparent;
+    border-left: 15px solid #2d71b1;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid #2d71b1;
+    -moz-border-radius: 50px 50px 50px 50px;
+    border-radius: 50%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 .protectThree{
-    width: 20px; 
-    height: 20px;
-    background: #cf1313;
-    border-radius: 50%;
     position: absolute;
+    top: -14px;
+    left: -15px;
+    width: 140px;
+    height: 140px;
+    border-right: 15px solid transparent;
+    border-left: 15px solid #cf1313;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid #cf1313;
+    -moz-border-radius: 50px 50px 50px 50px;
+    border-radius: 50%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 .protectFour{
-    width: 20px; 
-    height: 20px;
-    background: #0d9419;
-    border-radius: 50%;
     position: absolute;
+    top: -14px;
+    left: -15px;
+    width: 140px;
+    height: 140px;
+    border-right: 15px solid transparent;
+    border-left: 15px solid #0d9419;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid #0d9419;
+    -moz-border-radius: 50px 50px 50px 50px;
+    border-radius: 50%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }

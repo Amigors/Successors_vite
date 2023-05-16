@@ -1,7 +1,7 @@
 export type User = {
     [x: string]: any
     id:number,
-    parentId:number,
+    parentId?:number,
     name:string,
     positionName:string,
     birthday:string,
@@ -12,13 +12,14 @@ export type User = {
   }
   export type Successor = {
     id:number,
-    parentId:number,
-    name:string,
-    positionName:string,
-    birthday:string,
-    scientist:string,
-    ukr:string,
-    type:string
+      parentId:number,
+      name:string,
+      positionName:string,
+      birthday:string,
+      scientist:string,
+      ukr:string,
+      readyToWork: number
+      type:string
   }
   
   export type SuccessorsStruct = {

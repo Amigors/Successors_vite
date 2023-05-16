@@ -1,66 +1,111 @@
-import { useCallback, useState } from "react";
-import { SlPeople, SlArrowDownCircle } from "react-icons/sl";
+import {useCallback, useEffect, useRef, useState} from "react";
+import { SlPeople, SlArrowDownCircle, SlMenu } from "react-icons/sl";
 import { Handle, Position, useReactFlow } from "reactflow";
-import { transformUsersDataToReactFlowNodes } from "../../utils/sample-data";
+import {transformUsersDataToReactFlowNodes, userData} from "../../utils/sample-data";
+
+import UserInfo from "./userInfo/UserInfo";
 
 import style from './CustomNode.module.css'
 
 const CustomNodes = ({ data, isConnectable }) => {
-    const [show, setShow] = useState(false)
+    const [showInfo, setShowInfo] = useState(false);
+    const [showSuccessors, setShowSuccessors] = useState(false);
+    const [showChildren, setShowChildren] = useState(false);
+    const [tbOpen,setTbOpen] = useState(false);
     const reactFlowInstance = useReactFlow();
-    const handleClick = useCallback(() => {
-        if (!show){
-            reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySuccessors));
+    const [movePos, setMovePos] = useState(false)
+    const handleShowInfoClick = useCallback(() => {
+        setShowInfo(!showInfo)
+    }, [showInfo])
+    const handleSucceessorsClick = useCallback(() => {
+        if (!showSuccessors){
+            setMovePos(movePos=>!movePos)
+            reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySuccessors,));
+            // reactFlowInstance.setNodes(transformUsersDataToReactFlowNodes(data,undefined, movePos))
         } else {
-            reactFlowInstance.deleteElements({nodes: transformUsersDataToReactFlowNodes(data.mySuccessors)})
+            setMovePos(movePos=>!movePos)
+            reactFlowInstance.deleteElements({nodes: transformUsersDataToReactFlowNodes(data.mySuccessors,undefined, movePos)})
         }
-        setShow(show=>!show)
-    }, [show]);
+        setShowSuccessors(showSuccessors=>!showSuccessors)
+    }, [showSuccessors]);
+
+    const handleSubordinatesClick = useCallback(() => {
+        if (!showChildren){
+            reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySubordinates));
+        } else {
+            reactFlowInstance.deleteElements({nodes: transformUsersDataToReactFlowNodes(data.mySubordinates)})
+        }
+        setShowChildren(showChildren=>!showChildren)
+    }, [showChildren]);
+
+    const handleTbClick = () => {
+        setTbOpen(!tbOpen)
+    }
+
     return (
-        <div className={style.customNode}>
-            <div className={style.customNode__content}>
-                {data.id !==1 && <Handle
-                    type="target"
-                    position={Position.Top}
-                    className={style.handle}
-                    onConnect={(params) => console.log("handle onConnect", params)}
-                    isConnectable={isConnectable}
-                />}
-                <div style={{paddingRight: '10px'}}>
-                    {data.protect === 1 && <div className={style.protectOne}></div>}
-                    {data.protect === 2 && <div className={style.protectTwo}></div>}
-                    {data.protect === 3 && <div className={style.protectThree}></div>}
-                    {data.protect === 4 && <div className={style.protectFour}></div>}
-                    <img className={style.photo} src="https://placekitten.com/100/100" />
-                </div>
-                <div>
-                    <div><b>{data.positionName}</b></div>
-                    <div><i>{data.name}</i></div>
-                    <div>{data.birthday}</div>
-                    <div>{data.scientist}</div>
-                </div>
-
-                <Handle
-                    type="source"
-                    position={Position.Bottom}
-                    id="b"
-                    style={{ top: "auto", background: "#555" }}
-                    isConnectable={isConnectable}
-                />
+        <>
+            <div>
+                {data.protect === 1 && <div className={style.protectOne}></div>}
+                {data.protect === 2 && <div className={style.protectTwo}></div>}
+                {data.protect === 3 && <div className={style.protectThree}></div>}
+                {data.protect === 4 && <div className={style.protectFour}></div>}
             </div>
-            <div className={style.customNode__toolbar}>
-                {data.mySuccessors &&
-                    <div style={{cursor:'pointer'}}>
-                        <SlArrowDownCircle/>
+            <div>
+                <div className={style.company}></div>
+                <div className={style.customNode} onClick={handleTbClick}>
+                    <div className={style.customNode__content}>
+                        {data.id !==1 && <Handle
+                            type="target"
+                            position={Position.Top}
+                            className={style.handle}
+                            onConnect={(params) => console.log("handle onConnect", params)}
+                            isConnectable={isConnectable}
+                        />}
+                        <div className={style.photoBlock}>
+                            <img className={style.photo} src="https://yakovgo.gosuslugi.ru/netcat_files/265/2549/headshot.jpg" />
+                        </div>
+                        <div style={{display:'flex',flexDirection:'column', justifyContent:'space-around'}}>
+                            {data.readyToWork && <div style={{paddingBottom: '5px'}}>Готов через {data.readyToWork} лет </div>}
+                            <div style={{paddingBottom: '5px'}}><b>{data.positionName}</b></div>
+                            <div style={{paddingBottom: '5px'}}><i>{data.name}</i></div>
+                            <div style={{paddingBottom: '5px'}}>{data.birthday}</div>
+                            <div style={{paddingBottom: '5px'}}>{data.scientist}</div>
+                            {data.ukr && <div >УКР "{data.ukr}"</div>}
+                        </div>
+                        <Handle
+                            type="source"
+                            position={Position.Bottom}
+                            id="b"
+                            className={style.handle}
+                            isConnectable={isConnectable}
+                        />
                     </div>
-
-                }
-                {data.showButton &&
-                    <div style={{cursor:'pointer'}}>
-                        <SlPeople onClick={handleClick} />
-                    </div>}
+                    {tbOpen &&
+                        <div className={style.customNode__toolbar}>
+                            <ul>
+                                    <li onClick={handleShowInfoClick}>
+                                        <SlMenu/>
+                                        <span style={{marginLeft:'10px'}}>Подробная информация</span>
+                                    </li>
+                                {data.mySuccessors &&
+                                    <li onClick={handleSubordinatesClick}>
+                                        <SlArrowDownCircle/>
+                                        <span style={{marginLeft:'10px'}}>Показать подчиненных</span>
+                                    </li>
+                                }
+                                {data.showButton &&
+                                    <li onClick={handleSucceessorsClick}>
+                                        <SlPeople />
+                                        <span style={{marginLeft:'10px'}}>Показать преемников</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    {showInfo && <UserInfo data={data} showInfo={showInfo}/>}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

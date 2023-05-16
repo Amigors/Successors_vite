@@ -33,7 +33,7 @@ const Flow = () => {
     const [edges, setEdges] = useState([]);
     const shouldRunEffect = useRef(nodes)
 
-    const [isDraggable, setIsDraggable] = useState(true);
+    const [isDraggable, setIsDraggable] = useState(false);
 
     const reactFlowInstance = useReactFlow();
     const onClick = useCallback(() => {
@@ -51,22 +51,7 @@ const Flow = () => {
         reactFlowInstance.addNodes(newNode);
     }, []);
 
-    const latestNodes = useMemo(() => nodes, [nodes]);
 
-    useLayoutEffect(() => {
-        const newEdges = [...edges];
-        latestNodes.forEach((node1) => {
-          latestNodes.forEach((node2) => {
-            if (node1.id !== node2.id) {  
-              if (node1.id == node2.data.parentId) {
-                const newEdge = { id: uuidv4(), source: node1.id, target: node2.id, type: 'smoothstep', style:{stroke:'#FD6925'}};
-                newEdges.push(newEdge);
-              }
-            }
-          });
-        });
-        setEdges(newEdges);
-      }, [shouldRunEffect]);
 
     const onNodesChange = useCallback(
         (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -80,7 +65,62 @@ const Flow = () => {
         (params: Edge<any> | Connection) => setEdges((eds) => addEdge(params, eds)),
         []
     );
+    // const handleNodeClick = (e, node) => {
+    //     const findChildren = nodes.filter((item)=>item?.data?.parentId === node.data.id)
+    //     if (!findChildren.length){
+    //         const itemChildren = [...node.data.children.map(( item, i)=>{
+    //             return{
+    //                 id: item.id,
+    //                 type: nodeTypes,
+    //                 data: {label: item.name, children: item.children, parent: item.parent},
+    //                 position: { x: node.position.x+200, y:  i===0? node.position.y : node.position.y+i*100 },
+    //                 sourcePosition: 'bottom',
+    //                 targetPosition: 'top'
+    //             }
+    //         })]
+    //         setEdges([
+    //             ...edges,
+    //             ...itemChildren.map((item)=>{
+    //                 return {
+    //                     id: String(parseInt(String(Math.random() ))),
+    //                     source: item?.data?.parent,
+    //                     target: item?.id,
+    //
+    //                 }
+    //             })
+    //         ])
+    //         setNodes(nodes.concat(itemChildren))
+    //     }else{
+    //         setNodes([
+    //             ...nodes.filter((item)=>item?.data?.parent!==node.id)
+    //         ])
+    //         setEdges([
+    //             ...edges.filter((item)=>node.id!==item.source)
+    //         ])
+    //     }
+    // }
+    // const handleNodeClick = (event, node) => {
+    //     event.preventDefault();
+    //     setPopUpMenu({ x: event.clientX, y: event.clientY });
+    //     setShowMenu(!showMenu)
+    // };
 
+    const latestNodes = useMemo(() => nodes, [nodes]);
+
+    useLayoutEffect(() => {
+        const newEdges = [...edges];
+        latestNodes.forEach((node1) => {
+            latestNodes.forEach((node2) => {
+                if (node1.id !== node2.id) {
+                    if (node1.id == node2.data.parentId) {
+                        const newEdge = { id: uuidv4(), source: node1.id, target: node2.id, type: 'smoothstep', style:{stroke:'#003274'}};
+                        newEdges.push(newEdge);
+                    }
+                }
+            });
+        });
+        setEdges(newEdges);
+    }, [shouldRunEffect]);
     return (
         <div className={style.mainWindow}>
             <ReactFlow
@@ -91,8 +131,10 @@ const Flow = () => {
                 onConnect={onConnect}
                 nodeTypes={nodeTypes}
                 nodesDraggable={isDraggable}
+                zoomOnDoubleClick={false}
                 fitView
             >
+
                 <MiniMap/>
                 <Background/>
                 <Controls/>

@@ -1,0 +1,22 @@
+.infoWindow {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    left: -500px;
+    top: -100px;
+    width: 300px;
+    height: 500px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    background: antiquewhite;
+}
+
+.photo{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
