@@ -31,6 +31,7 @@ const Flow = () => {
     const items = transformUsersDataToReactFlowNodes(userData, successorsData);
     const [nodes, setNodes] = useState(items);
     const [edges, setEdges] = useState([]);
+    const [snapToGrid, setSnapToGrid] = useState(false);
     const shouldRunEffect = useRef(nodes)
 
     const [isDraggable, setIsDraggable] = useState(false);
@@ -51,7 +52,24 @@ const Flow = () => {
         reactFlowInstance.addNodes(newNode);
     }, []);
 
+    function renderHelperLines() {
+        if (!isDraggable) {
+            return null;
+        }
 
+        return (
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    left: '50%',
+                    borderLeft: '2px dashed rgba(0, 0, 0, 0.2)',
+                    pointerEvents: 'none',
+                }}
+            />
+        );
+    }
 
     const onNodesChange = useCallback(
         (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -121,6 +139,7 @@ const Flow = () => {
         });
         setEdges(newEdges);
     }, [shouldRunEffect]);
+
     return (
         <div className={style.mainWindow}>
             <ReactFlow
@@ -132,11 +151,11 @@ const Flow = () => {
                 nodeTypes={nodeTypes}
                 nodesDraggable={isDraggable}
                 zoomOnDoubleClick={false}
+                snapToGrid={true}
                 fitView
             >
-
                 <MiniMap/>
-                <Background/>
+                <Background variant='lines'/>
                 <Controls/>
             </ReactFlow>
             <div style={{
@@ -157,10 +176,7 @@ const Flow = () => {
                             nodesDraggable
                         </label>
                     </div>
-                    <button
-                        onClick={onClick}
-                        className="btn-add"
-                    >
+                    <button onClick={onClick} className="btn-add">
                         add node
                     </button>
             </div>
@@ -168,5 +184,8 @@ const Flow = () => {
         </div>
     );
 };
+
+
+
 
 export default Flow;

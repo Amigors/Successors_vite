@@ -1,13 +1,43 @@
 .company{
     position: absolute;
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
     top: -20px;
-    left: 80px;
+    left: 60px;
     background: #91b3b7;
-    width: 250px;
+    width: 300px;
     height: 20px;
 }
 
 .customNode {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-size: small;
+    border-radius: 70px;
+    border: 1px solid #555;
+    padding: 5px;
+    background: #f5fcff;
+    width: 400px;
+    height: 105px;
+}
+
+.customNode__main {
+    display: flex;
+    font-size: small;
+    color: #ffffff;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 70px;
+    border: 1px solid #555;
+    padding: 5px;
+    background: #145596;
+    width: 400px;
+    height: 105px;
+}
+
+.customNode__successors {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -16,8 +46,9 @@
     padding: 10px;
     background: #f5fcff;
     width: 400px;
-    height: 120px;
+    height: 130px;
 }
+
 .customNode__content{
     display: flex;
     flex-direction: row;
@@ -25,6 +56,7 @@
 }
 .customNode__toolbar{
     position: absolute;
+    color: black;
     top: 100%;
     left: 0;
     width: auto;
@@ -60,23 +92,26 @@ li:hover {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .photoBlock{
+
     padding-right: 10px;
     display: flex;
     align-items: center;
 }
 
 .protectOne{
-    position: absolute;
-    top: -14px;
-    left: -15px;
-    width: 140px;
-    height: 140px;
-    border-right: 15px solid transparent;
-    border-left: 15px solid #badf19;
-    border-bottom: 15px solid transparent;
-    border-top: 15px solid #badf19;
+    position: fixed;
+    z-index: -1;
+    top: -19px;
+    left: -20px;
+    width: 115px;
+    height: 115px;
+    border-right: 20px solid transparent;
+    border-left: 20px solid #badf19;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid #badf19;
     -moz-border-radius: 50px 50px 50px 50px;
     border-radius: 50%;
     -webkit-transform: rotate(-45deg);
@@ -86,15 +121,16 @@ li:hover {
     transform: rotate(-45deg);
 }
 .protectTwo{
-    position: absolute;
-    top: -14px;
-    left: -15px;
-    width: 140px;
-    height: 140px;
-    border-right: 15px solid transparent;
-    border-left: 15px solid #2d71b1;
-    border-bottom: 15px solid transparent;
-    border-top: 15px solid #2d71b1;
+    position: fixed;
+    z-index: -1;
+    top: -19px;
+    left: -20px;
+    width: 115px;
+    height: 115px;
+    border-right: 20px solid transparent;
+    border-left: 20px solid #2d71b1;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid #2d71b1;
     -moz-border-radius: 50px 50px 50px 50px;
     border-radius: 50%;
     -webkit-transform: rotate(-45deg);
@@ -104,15 +140,16 @@ li:hover {
     transform: rotate(-45deg);
 }
 .protectThree{
-    position: absolute;
-    top: -14px;
-    left: -15px;
-    width: 140px;
-    height: 140px;
-    border-right: 15px solid transparent;
-    border-left: 15px solid #cf1313;
-    border-bottom: 15px solid transparent;
-    border-top: 15px solid #cf1313;
+    position: fixed;
+    z-index: -1;
+    top: -19px;
+    left: -20px;
+    width: 115px;
+    height: 115px;
+    border-right: 20px solid transparent;
+    border-left: 20px solid #cf1313;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid #cf1313;
     -moz-border-radius: 50px 50px 50px 50px;
     border-radius: 50%;
     -webkit-transform: rotate(-45deg);
@@ -122,15 +159,16 @@ li:hover {
     transform: rotate(-45deg);
 }
 .protectFour{
-    position: absolute;
-    top: -14px;
-    left: -15px;
-    width: 140px;
-    height: 140px;
-    border-right: 15px solid transparent;
-    border-left: 15px solid #0d9419;
-    border-bottom: 15px solid transparent;
-    border-top: 15px solid #0d9419;
+    position: fixed;
+    z-index: -1;
+    top: -19px;
+    left: -20px;
+    width: 115px;
+    height: 115px;
+    border-right: 20px solid transparent;
+    border-left: 20px solid #0d9419;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid #0d9419;
     -moz-border-radius: 50px 50px 50px 50px;
     border-radius: 50%;
     -webkit-transform: rotate(-45deg);

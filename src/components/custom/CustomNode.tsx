@@ -19,13 +19,12 @@ const CustomNodes = ({ data, isConnectable }) => {
     }, [showInfo])
     const handleSucceessorsClick = useCallback(() => {
         if (!showSuccessors){
-            setMovePos(movePos=>!movePos)
-            reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySuccessors,));
+            reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySuccessors));
             // reactFlowInstance.setNodes(transformUsersDataToReactFlowNodes(data,undefined, movePos))
         } else {
-            setMovePos(movePos=>!movePos)
             reactFlowInstance.deleteElements({nodes: transformUsersDataToReactFlowNodes(data.mySuccessors,undefined, movePos)})
         }
+        setMovePos(movePos=>!movePos)
         setShowSuccessors(showSuccessors=>!showSuccessors)
     }, [showSuccessors]);
 
@@ -51,8 +50,8 @@ const CustomNodes = ({ data, isConnectable }) => {
                 {data.protect === 4 && <div className={style.protectFour}></div>}
             </div>
             <div>
-                <div className={style.company}></div>
-                <div className={style.customNode} onClick={handleTbClick}>
+                {!data.readyToWork && <div className={style.company}>Компания</div>}
+                <div className={data.id !== 1 ? style.customNode:style.customNode__main} onClick={handleTbClick}>
                     <div className={style.customNode__content}>
                         {data.id !==1 && <Handle
                             type="target"
@@ -66,10 +65,10 @@ const CustomNodes = ({ data, isConnectable }) => {
                         </div>
                         <div style={{display:'flex',flexDirection:'column', justifyContent:'space-around'}}>
                             {data.readyToWork && <div style={{paddingBottom: '5px'}}>Готов через {data.readyToWork} лет </div>}
-                            <div style={{paddingBottom: '5px'}}><b>{data.positionName}</b></div>
-                            <div style={{paddingBottom: '5px'}}><i>{data.name}</i></div>
-                            <div style={{paddingBottom: '5px'}}>{data.birthday}</div>
-                            <div style={{paddingBottom: '5px'}}>{data.scientist}</div>
+                            <div ><b>{data.positionName}</b></div>
+                            <div ><i>{data.name}</i></div>
+                            <div >{data.birthday}</div>
+                            <div >{data.scientist}</div>
                             {data.ukr && <div >УКР "{data.ukr}"</div>}
                         </div>
                         <Handle

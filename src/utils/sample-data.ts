@@ -5,10 +5,10 @@ export const userData: User[] = [
     id: 1,
     parentId: 0,
     name: "Иванов Павел",
-    positionName: "Директор",
+    positionName: "Генеральный директор",
     birthday: "01.02.1988",
     scientist: "КДН",
-    ukr: "",
+    ukr: "123",
     protect: 1,
     type: "input",
   },
@@ -293,34 +293,80 @@ export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?
   let y = 0;
   let x = 0;
   const successorsPosition ={
-    0: {x: 450, y: -210},
-    1: {x: 450, y: -55},
-    2: {x: 450, y: 100},
-    3: {x: -450, y: 100},
-    4: {x: -450, y: -55},
-    5: {x: -450, y: -210},
-    6: {x: 450, y: -365},
-    7: {x: -450, y: -365},
-    8: {x: 450, y: 255},
-    9: {x: -450, y: 255},
-    10: {x: 450, y: 410},
-    11: {x: -450, y: 410},
+    0: {x: 450, y: -170},
+    1: {x: 450, y: -15},
+    2: {x: 450, y: 140},
+    3: {x: -450, y: 140},
+    4: {x: -450, y: -15},
+    5: {x: -450, y: -170},
+    6: {x: 450, y: -325},
+    7: {x: -450, y: -325},
+    8: {x: 450, y: 275},
+    9: {x: -450, y: 275},
+    10: {x: 450, y: 430},
+    11: {x: -450, y: 430},
   }
   return usersData.map((user, index) => {
     const parentNode = obj[user.parentId];
     if (parentNode) {
       const subs = parentNode.subs ?? (parentNode.subs = []);
       subs.push(user);
-      if (subs.length % 2 === 0) {
-        const halfLength = Math.ceil(subs.length / 2);
-        const firstHalf = subs.slice(0, halfLength);
-        const secondHalf = subs.slice(-halfLength);
+
+      const sortedSubs = subs.sort((a, b) => b.value - a.value);
+
+      const leftHalf = [];
+      const rightHalf = [];
+
+      for (let i = 0; i < sortedSubs.length; i++){
+        if (i % 2 == 0) {
+          leftHalf.push(sortedSubs[i]);
+        } else {
+          rightHalf.push(sortedSubs[i]);
+        }
       }
-      console.log(subs)
+
       const spacing = 500;
-      const index = subs.length - 1;
-      x = parentNode.position.x + index * spacing;
-      y = parentNode.position.y + 500;
+      if (subs.length % 2 !== 0){
+        const centerIndex = Math.floor(sortedSubs.length / 2);
+        sortedSubs[centerIndex].position = { x: parentNode.position.x, y: parentNode.position.y + 500 };
+        for (let i = 0; i < leftHalf.length; i++){
+          x = parentNode.position.x - (i + 1) * spacing;
+          y = parentNode.position.y + 500;
+          leftHalf[i].position = { x, y };
+        }
+        for (let i = 0; i < rightHalf.length; i++){
+          x = parentNode.position.x + (i + 1) * spacing;
+          y = parentNode.position.y + 500;
+          rightHalf[i].position = { x, y };
+        }
+      } else {
+        if (leftHalf.length > 0) {
+          leftHalf.forEach((elem, index) => {
+            if (index === 0){
+              x = parentNode.position.x - (index + 1) * 250;
+              y = parentNode.position.y + 500;
+              elem.position = { x, y };
+            } else {
+              x = parentNode.position.x - (index + 1) * 250;
+              y = parentNode.position.y + 500;
+              elem.position = { x, y };
+            }
+          });
+        }
+        if (rightHalf.length > 0) {
+          rightHalf.forEach((elem, index) => {
+            if (index === 0){
+              x = parentNode.position.x + (index + 1) * 500;
+              y = parentNode.position.y + 500;
+              elem.position = { x, y };
+            } else {
+              x = parentNode.position.x + (index + 1) * spacing;
+              y = parentNode.position.y + 500;
+              elem.position = { x, y };
+            }
+          });
+        }
+      }
     }
 
     const position = {
