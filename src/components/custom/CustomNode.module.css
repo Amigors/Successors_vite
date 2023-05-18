@@ -3,11 +3,11 @@
     display: flex;
     justify-content: center;
     color: #ffffff;
-    top: -20px;
+    top: -19px;
     left: 60px;
     background: #91b3b7;
     width: 300px;
-    height: 20px;
+    height: 19px;
 }
 
 .customNode {
@@ -87,18 +87,21 @@ li:hover {
 }
 
 .photo{
-    display: flex;
-    align-items: center;
+
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .photoBlock{
-
-    padding-right: 10px;
+    background: #c2bfbf;
+    border-radius: 50%;
+    width: 105px;
+    height: 105px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    box-shadow: rgba(0,0,0, 5);
 }
 
 .protectOne{

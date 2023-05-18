@@ -140,6 +140,21 @@ const Flow = () => {
         setEdges(newEdges);
     }, [shouldRunEffect]);
 
+    const [helperLines, setHelperLines] = useState([]);
+    const onNodeDrag = (event, node) => {
+        const { x, y } = node.position;
+        const nodesLine = nodes.filter(el => el.id !== node.id); // exclude the dragged node from the list of nodes
+        const xLines = nodesLine.filter(el => Math.abs(el.position.x - x) < 10); // find nodes that are on the same level in the x direction
+        const yLines = nodesLine.filter(el => Math.abs(el.position.y - y) < 10); // find nodes that are on the same level in the y direction
+        setHelperLines([...xLines, ...yLines]); // set the helper lines to be drawn
+        console.log(helperLines)
+    };
+
+    const onNodeDragStop = (event, node) =>{
+        setHelperLines([])
+    }
+
+
     return (
         <div className={style.mainWindow}>
             <ReactFlow
@@ -151,9 +166,25 @@ const Flow = () => {
                 nodeTypes={nodeTypes}
                 nodesDraggable={isDraggable}
                 zoomOnDoubleClick={false}
-                snapToGrid={true}
+                onNodeDrag={onNodeDrag}
+                onNodeDragStop={onNodeDragStop}
                 fitView
             >
+                {helperLines.map(node => (
+                    <div
+                        key={node.id}
+                        style={{
+                            position: 'absolute',
+                            left: node.position.x,
+                            top: node.position.y,
+                            width: '100vw',
+                            height: '1px',
+                            background: 'red',
+                            pointerEvents: 'none',
+                            zIndex: 10,
+                        }}
+                    />
+                ))}
                 <MiniMap/>
                 <Background variant='lines'/>
                 <Controls/>

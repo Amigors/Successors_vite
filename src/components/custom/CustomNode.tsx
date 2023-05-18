@@ -18,13 +18,18 @@ const CustomNodes = ({ data, isConnectable }) => {
         setShowInfo(!showInfo)
     }, [showInfo])
     const handleSucceessorsClick = useCallback(() => {
+        // setMovePos(movePos=>!movePos)
         if (!showSuccessors){
-            reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySuccessors));
+            setMovePos(()=>{
+                reactFlowInstance.addNodes(transformUsersDataToReactFlowNodes(data.mySuccessors, undefined, movePos));
+                return true
+            })
             // reactFlowInstance.setNodes(transformUsersDataToReactFlowNodes(data,undefined, movePos))
         } else {
+            setMovePos(false)
             reactFlowInstance.deleteElements({nodes: transformUsersDataToReactFlowNodes(data.mySuccessors,undefined, movePos)})
         }
-        setMovePos(movePos=>!movePos)
+
         setShowSuccessors(showSuccessors=>!showSuccessors)
     }, [showSuccessors]);
 
@@ -60,9 +65,9 @@ const CustomNodes = ({ data, isConnectable }) => {
                             onConnect={(params) => console.log("handle onConnect", params)}
                             isConnectable={isConnectable}
                         />}
-                        <div className={style.photoBlock}>
-                            <img className={style.photo} src="https://yakovgo.gosuslugi.ru/netcat_files/265/2549/headshot.jpg" />
-                        </div>
+                            <div className={style.photoBlock}>
+                                <img className={style.photo} src="https://yakovgo.gosuslugi.ru/netcat_files/265/2549/headshot.jpg" />
+                            </div>
                         <div style={{display:'flex',flexDirection:'column', justifyContent:'space-around'}}>
                             {data.readyToWork && <div style={{paddingBottom: '5px'}}>Готов через {data.readyToWork} лет </div>}
                             <div ><b>{data.positionName}</b></div>

@@ -1,4 +1,5 @@
 import { Successor, User } from "../interfaces";
+import {set} from 'lodash'
 import axios from "axios";
 export const userData: User[] = [
   {
@@ -379,6 +380,15 @@ export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?
     } else {
       obj[user.id] = {position};
     }
+    // console.log('old',obj[user.id])
+    // console.log(position.x)
+    console.log(movePos)
+    if (movePos){
+
+       set(obj[user.id], 'position.x', position.x+200)
+       set(obj[user.id], 'position.y', position.y+200)
+    }
+    // console.log('new', obj[user.id])
     return {
       type: "myNode",
       id: `${user.id}`,
