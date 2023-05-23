@@ -1,19 +1,23 @@
 .infoWindow {
-    position: absolute;
+    position: fixed;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    left: -500px;
-    top: -100px;
-    width: 300px;
-    height: 500px;
-    background-color: white;
+    left: 100px;
+    top: 0;
+    width: 400px;
+    height: 98vh;
+    /*transform: translate(-50%, -50%);*/
+    background: antiquewhite;
     border: 1px solid black;
     border-radius: 15px;
-    padding: 10px;
-    background: antiquewhite;
 }
 
+.infoWindow__content{
+    padding: 10px;
+
+}
 .photo{
     width: 200px;
     height: 200px;

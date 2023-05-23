@@ -284,28 +284,135 @@ export const successorsData: Successor[] = [
 ]
 
 export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?: any[] | undefined, movePos?: boolean ) => {
-  // const apiUrl = 'http://172.16.180.100:8080/'
+  // const apiUrl = 'http://172.16.180.100:8080/api/v1/career_new/1'
   // axios.get(apiUrl).then((resp) => {
   //   const response = resp.data
-  //   // console.log(response)
+  //    console.log(response)
   // })
-
+  // let successorsPosition
+  // usersData.forEach((elem,index)=>{
+  //   console.log(Boolean('readyToWork' in elem))
+  //   if ('readyToWork' in elem){
+  //     switch (usersData.length){
+  //       case '1':
+  //         return successorsPosition = {
+  //           0:{x:450, y: 0},
+  //           1:{x:0, y: 0},
+  //           2:{x:0, y: 0},
+  //           3:{x:0, y: 0},
+  //           4:{x:0, y: 0},
+  //           5:{x:0, y: 0},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '2':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -75},
+  //           1:{x:450, y: 75},
+  //           2:{x:0, y: 0},
+  //           3:{x:0, y: 0},
+  //           4:{x:0, y: 0},
+  //           5:{x:0, y: 0},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '3':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -150},
+  //           1:{x:450, y: 0},
+  //           2:{x:450, y: 150},
+  //           3:{x:0, y: 0},
+  //           4:{x:0, y: 0},
+  //           5:{x:0, y: 0},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '4':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -150},
+  //           1:{x:450, y: 0},
+  //           2:{x:450, y: 150},
+  //           3:{x:-450, y: 0},
+  //           4:{x:0, y: 0},
+  //           5:{x:0, y: 0},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '5':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -150},
+  //           1:{x:450, y: 0},
+  //           2:{x:450, y: 150},
+  //           3:{x:-450, y: -75},
+  //           4:{x:-450, y: 75},
+  //           5:{x:0, y: 0},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '6':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -150},
+  //           1:{x:450, y: 0},
+  //           2:{x:450, y: 150},
+  //           3:{x:-450, y: -150},
+  //           4:{x:-450, y: 0},
+  //           5:{x:-450, y: 150},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '7':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -225},
+  //           1:{x:450, y: -75},
+  //           2:{x:450, y: 75},
+  //           3:{x:450, y:225},
+  //           4:{x:-450, y: -150},
+  //           5:{x:-450, y: 0},
+  //           6:{x:-450, y: 150},
+  //           7:{x:0, y: 0},
+  //         }
+  //       case '8':
+  //         return successorsPosition = {
+  //           0:{x:450, y: -225},
+  //           1:{x:450, y: -75},
+  //           2:{x:450, y: 75},
+  //           3:{x:450, y:225},
+  //           4:{x:-450, y: -225},
+  //           5:{x:-450, y: -75},
+  //           6:{x:-450, y: 75},
+  //           7:{x:-450, y: 225},
+  //         }
+  //       default:
+  //         return successorsPosition ={
+  //           0:{x:0, y: 0},
+  //           1:{x:0, y: 0},
+  //           2:{x:0, y: 0},
+  //           3:{x:0, y: 0},
+  //           4:{x:0, y: 0},
+  //           5:{x:0, y: 0},
+  //           6:{x:0, y: 0},
+  //           7:{x:0, y: 0},
+  //         }
+  //     }
+  //   }
+  // })
+  // console.log(Boolean('readyToWork' in usersData))
   const obj = {};
   let y = 0;
   let x = 0;
+
+  // console.log(usersData.length)
+
+
   const successorsPosition ={
-    0: {x: 450, y: -170},
-    1: {x: 450, y: -15},
-    2: {x: 450, y: 140},
-    3: {x: -450, y: 140},
-    4: {x: -450, y: -15},
-    5: {x: -450, y: -170},
-    6: {x: 450, y: -325},
-    7: {x: -450, y: -325},
-    8: {x: 450, y: 275},
-    9: {x: -450, y: 275},
-    10: {x: 450, y: 430},
-    11: {x: -450, y: 430},
+    0:{x:450, y: -195},
+    1:{x:450, y: -65},
+    2:{x:450, y: 65},
+    3:{x:450, y: 195},
+    4:{x:-450, y: -195},
+    5:{x:-450, y: -65},
+    6:{x:-450, y: 65},
+    7:{x:-450, y: 195},
   }
   return usersData.map((user, index) => {
     const parentNode = obj[user.parentId];
@@ -329,6 +436,7 @@ export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?
       const spacing = 500;
       if (subs.length % 2 !== 0){
         const centerIndex = Math.floor(sortedSubs.length / 2);
+        // console.log(centerIndex, sortedSubs)
         sortedSubs[centerIndex].position = { x: parentNode.position.x, y: parentNode.position.y + 500 };
         for (let i = 0; i < leftHalf.length; i++){
           x = parentNode.position.x - (i + 1) * spacing;
@@ -348,7 +456,7 @@ export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?
               y = parentNode.position.y + 500;
               elem.position = { x, y };
             } else {
-              x = parentNode.position.x - (index + 1) * 250;
+              x = parentNode.position.x - (index + 1) * spacing;
               y = parentNode.position.y + 500;
               elem.position = { x, y };
             }
@@ -380,15 +488,20 @@ export const transformUsersDataToReactFlowNodes = (usersData: any[], successers?
     } else {
       obj[user.id] = {position};
     }
-    // console.log('old',obj[user.id])
+    //console.log('old',obj[user.id])
     // console.log(position.x)
-    console.log(movePos)
-    if (movePos){
+    // console.log(movePos)
+    if (movePos ){
+      console.log(`[${user.id}]`)
+      set(obj, `[${user.id}].position.x`, position.x + 200);
 
-       set(obj[user.id], 'position.x', position.x+200)
-       set(obj[user.id], 'position.y', position.y+200)
+      set(obj, `[${user.id}].position.y`, position.y + 200);
     }
-    // console.log('new', obj[user.id])
+    // else if (!movePos && [user.id].position.x % 500 !== 0){
+    //   set(obj, [`${user.id}`].position.x, position.x - 200);
+    //   set(obj, [`${user.id}`].position.y, position.y - 200);
+    // }
+    //console.log('new', obj[user.id])
     return {
       type: "myNode",
       id: `${user.id}`,

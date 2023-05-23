@@ -1,5 +1,13 @@
 .mainWindow{
     width: 100vw;
     height: 100vh;
-    position: relative;
   }
+
+.menubar{
+    position: absolute;
+    z-index: 10;
+    top: 10px;
+    left: 10px;
+    border: 1px solid black;
+    height: 100px;
+}

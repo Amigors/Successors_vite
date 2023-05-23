@@ -1,4 +1,5 @@
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { SlPlus } from "react-icons/sl";
 import { v4 as uuidv4 } from 'uuid';
 
 import ReactFlow, {
@@ -16,7 +17,8 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 
-import CustomNodes from "../custom/CustomNode";
+import CustomNodes from "../custom/Node/CustomNode";
+import ConnectionLine from "../custom/connectionLines/CustomLine"
 
 import style from './index.module.css'
 import { successorsData, transformUsersDataToReactFlowNodes, userData } from "../../utils/sample-data";
@@ -41,6 +43,7 @@ const Flow = () => {
         const id = `${++nodeId}`;
         const newNode = {
             id,
+            type:'myNode',
             position: {
                 x: Math.random() * 500,
                 y: Math.random() * 500,
@@ -143,10 +146,10 @@ const Flow = () => {
     const [helperLines, setHelperLines] = useState([]);
     const onNodeDrag = (event, node) => {
         const { x, y } = node.position;
-        const nodesLine = nodes.filter(el => el.id !== node.id); // exclude the dragged node from the list of nodes
-        const xLines = nodesLine.filter(el => Math.abs(el.position.x - x) < 10); // find nodes that are on the same level in the x direction
-        const yLines = nodesLine.filter(el => Math.abs(el.position.y - y) < 10); // find nodes that are on the same level in the y direction
-        setHelperLines([...xLines, ...yLines]); // set the helper lines to be drawn
+        const nodesLine = nodes.filter(el => el.id !== node.id);
+        const xLines = nodesLine.filter(el => Math.abs(el.position.x - x) < 10);
+        const yLines = nodesLine.filter(el => Math.abs(el.position.y - y) < 10);
+        setHelperLines([...xLines, ...yLines]);
         console.log(helperLines)
     };
 
@@ -160,6 +163,7 @@ const Flow = () => {
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
+                connectionLineComponent={ConnectionLine}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
@@ -189,12 +193,7 @@ const Flow = () => {
                 <Background variant='lines'/>
                 <Controls/>
             </ReactFlow>
-            <div style={{
-                    position: "absolute",
-                    zIndex: "10",
-                    top: "10px",
-                    left: "10px",
-                }}>
+            <div className={style.menubar}>
                     <div>
                         <label htmlFor="draggable">
                             <input
@@ -207,9 +206,10 @@ const Flow = () => {
                             nodesDraggable
                         </label>
                     </div>
-                    <button onClick={onClick} className="btn-add">
-                        add node
-                    </button>
+
+                    <div onClick={onClick} className="btn-add">
+                        <SlPlus />
+                    </div>
             </div>
             
         </div>
